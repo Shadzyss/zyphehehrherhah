@@ -26,7 +26,13 @@ const client = new Client({
         GatewayIntentBits.GuildVoiceStates
     ] 
 });
-
+// ==========================================================
+// 🏠 ANA SAYFA (Root Endpoint)
+// ==========================================================
+app.get('/', (req, res) => {
+    // Tırnak içine istediğin her şeyi yazabilirsin
+    res.send('👑 Zyphera Bot API Sistemi Aktif! 👑'); 
+});
 // Komut koleksiyonunu hazırla
 client.commands = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
