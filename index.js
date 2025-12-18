@@ -5,7 +5,7 @@ const path = require('node:path');
 const { Client, Collection, GatewayIntentBits, ActivityType, EmbedBuilder } = require('discord.js');
 const mongoose = require('mongoose');
 const { joinVoiceChannel, getVoiceConnection } = require('@discordjs/voice');
-const express = require('express'); // YENİ: Web sunucusu için
+const express = require('express'); 
 
 // Modelleri Çağırıyoruz
 const GeneralKey = require('./models/generalKeyModel');
@@ -26,13 +26,14 @@ const client = new Client({
         GatewayIntentBits.GuildVoiceStates
     ] 
 });
+
 // ==========================================================
 // 🏠 ANA SAYFA (Root Endpoint)
 // ==========================================================
 app.get('/', (req, res) => {
-    // Tırnak içine istediğin her şeyi yazabilirsin
     res.send('👑 Zyphera Bot API Sistemi Aktif! 👑'); 
 });
+
 // Komut koleksiyonunu hazırla
 client.commands = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
@@ -54,7 +55,7 @@ if (fs.existsSync(commandsPath)) {
 const TARGET_VOICE_CHANNEL_ID = '1448368801606533364';
 
 // ==========================================================
-// 🌍 ROBLOX API ENDPOINT (YENİ EKLENDİ)
+// 🌍 ROBLOX API ENDPOINT
 // ==========================================================
 app.get('/check-key', async (req, res) => {
     // Roblox'tan gelen veriler: ?key=KEY&hwid=HWID
@@ -104,14 +105,14 @@ app.get('/check-key', async (req, res) => {
         }
 
         // C) BAŞARILI!
-        // Script linkini buraya koyabilirsin veya raw kod döndürebilirsin.
         const scriptToLoad = `print('Zyphera: Hoşgeldin/Welcome! (${keyType})')`; 
 
         return res.json({
             success: true,
             message: "Giriş Başarılı / Login Successful",
             script: scriptToLoad, 
-            type: keyType
+            type: keyType,
+            scriptName: dbKey.scriptName // <--- YENİ EKLENEN KISIM: Script adını gönderiyoruz
         });
 
     } catch (error) {
