@@ -55,11 +55,11 @@ if (fs.existsSync(commandsPath)) {
 const TARGET_VOICE_CHANNEL_ID = '1448368801606533364';
 
 // ==========================================================
-// 🌍 ROBLOX API ENDPOINT
+// 🌍 ROBLOX API ENDPOINT (GÜNCELLENDİ: Strict Mode)
 // ==========================================================
 app.get('/check-key', async (req, res) => {
-    // Roblox'tan gelen veriler: ?key=KEY&hwid=HWID
-    const { key, hwid } = req.query;
+    // strict parametresi eklendi: "subscriber" veya "general" gönderilebilir
+    const { key, hwid, strict } = req.query;
 
     if (!key || !hwid) {
         return res.json({ success: false, message: "Key veya HWID eksik! / Key or HWID missing!" });
@@ -79,6 +79,16 @@ app.get('/check-key', async (req, res) => {
         // 3. Hiçbir yerde yoksa
         if (!dbKey) {
             return res.json({ success: false, message: "Geçersiz Key! / Invalid Key!" });
+        }
+
+        // --- 🛡️ TÜR KONTROLÜ (Strict Mode) ---
+        // Eğer GUI "strict" parametresi gönderdiyse ve tür uyuşmuyorsa,
+        // HWID kilitlemeden direkt reddet.
+        if (strict && strict !== keyType) {
+            return res.json({ 
+                success: false, 
+                message: `Yanlış Key Tipi! Bu menü sadece ${strict} keyleri içindir. / Wrong Key Type! This menu is for ${strict} keys only.` 
+            });
         }
 
         // --- KONTROLLER ---
@@ -112,7 +122,7 @@ app.get('/check-key', async (req, res) => {
             message: "Giriş Başarılı / Login Successful",
             script: scriptToLoad, 
             type: keyType,
-            scriptName: dbKey.scriptName // <--- YENİ EKLENEN KISIM: Script adını gönderiyoruz
+            scriptName: dbKey.scriptName 
         });
 
     } catch (error) {
