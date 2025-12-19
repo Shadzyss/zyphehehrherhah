@@ -55,7 +55,7 @@ if (fs.existsSync(commandsPath)) {
 const TARGET_VOICE_CHANNEL_ID = '1448368801606533364';
 
 // ==========================================================
-// 🌍 ROBLOX API ENDPOINT (GÜNCELLENDİ: Güvenli Script Kontrolü)
+// 🌍 ROBLOX API ENDPOINT (GÜVENLİ SCRİPT KONTROLÜ)
 // ==========================================================
 app.get('/check-key', async (req, res) => {
     // scriptName parametresi eklendi
@@ -175,7 +175,7 @@ client.once('ready', async () => {
         i++;
     }, 5000); 
 
-    // SES SİSTEMİ
+    // SES SİSTEMİ (DÜZELTİLDİ)
     const connectToVoice = async () => {
         try {
             const guildId = process.env.GUILD_ID; 
@@ -192,7 +192,7 @@ client.once('ready', async () => {
             joinVoiceChannel({
                 channelId: voiceChannel.id,
                 guildId: guild.id,
-                voiceAdapterCreator: guild.voiceAdapterCreator,
+                adapterCreator: guild.voiceAdapterCreator, // <--- DÜZELTİLEN YER BURASI
                 selfDeaf: true,
                 selfMute: true
             });
