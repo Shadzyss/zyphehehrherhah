@@ -55,11 +55,11 @@ if (fs.existsSync(commandsPath)) {
 const TARGET_VOICE_CHANNEL_ID = '1448368801606533364';
 
 // ==========================================================
-// 🌍 ROBLOX API ENDPOINT (GÜVENLİ SCRİPT KONTROLÜ)
+// 🌍 ROBLOX API ENDPOINT (TAM GÜVENLİK - STRICT MODE)
 // ==========================================================
 app.get('/check-key', async (req, res) => {
-    // scriptName parametresi eklendi
-    const { key, hwid, strict, scriptName } = req.query;
+    // Lua scriptinden gelen veriler
+    const { key, hwid, scriptName } = req.query;
 
     if (!key || !hwid) {
         return res.json({ success: false, message: "Key veya HWID eksik! / Key or HWID missing!" });
@@ -81,25 +81,23 @@ app.get('/check-key', async (req, res) => {
             return res.json({ success: false, message: "Geçersiz Key! / Invalid Key!" });
         }
 
-        // --- 🛡️ TÜR KONTROLÜ (Strict Mode - UI'dan gelen) ---
-        if (strict && strict !== keyType) {
-            return res.json({ 
-                success: false, 
-                message: `Yanlış Key Tipi! Bu menü sadece ${strict} keyleri içindir. / Wrong Key Type! This menu is for ${strict} keys only.` 
-            });
-        }
-
-        // --- 🛡️ SCRIPT İSMİ KONTROLÜ (GÜVENLİK GÜNCELLEMESİ) ---
-        // Bu bölüm HWID kaydetmeden ÖNCE çalışır. Böylece yanlış yere girilen key yanmaz.
+        // --- 🛡️ SCRIPT İSMİ KONTROLÜ (EN KRİTİK NOKTA) ---
+        // Bu kontrol HWID kaydetmeden ÖNCE yapılır.
+        // Eğer Script isimleri BİREBİR TUTMUYORSA işlem iptal edilir ve HWID KAYDEDİLMEZ.
+        // Abone Key bile olsa, yanlış script adına girmeye çalışırsa reddedilir.
+        
         if (scriptName) {
-            // Eğer key "ABONE KEY" ise her yere girebilir, kontrolü geç.
-            // Ama normal key ise ve isimler uyuşmuyorsa REDDET.
-            if (dbKey.scriptName !== "ABONE KEY" && dbKey.scriptName !== scriptName) {
+            if (dbKey.scriptName !== scriptName) {
+                // İsimler farklı! 
+                // Örn: Veritabanı="ABONE KEY", Gelen="BLOX FRUITS" -> HATA!
+                // Örn: Veritabanı="PET SIM", Gelen="DOORS" -> HATA!
+                
                 return res.json({ 
                     success: false, 
-                    scriptName: dbKey.scriptName, // Doğru ismi geri döndür
-                    message: `Yanlış Oyun! Bu Key '${dbKey.scriptName}' oyunu içindir. / Wrong Game! This key is for '${dbKey.scriptName}'.` 
+                    scriptName: dbKey.scriptName, // Doğrusunu göster
+                    message: `HATA: Bu Key '${dbKey.scriptName}' içindir. Buraya (${scriptName}) giremez!` 
                 });
+                // BURADA "RETURN" ETTİĞİMİZ İÇİN KOD AŞAĞIYA İNMEZ VE HWID KAYDETMEZ.
             }
         }
 
@@ -113,16 +111,17 @@ app.get('/check-key', async (req, res) => {
             }
         }
 
-        // B) HWID Kontrolü ve Kaydetme (Artık buraya geldiyse script doğrudur)
+        // B) HWID Kontrolü ve Kaydetme
+        // Buraya kadar geldiyse İSİM DOĞRUDUR. Artık HWID işlemine geçebiliriz.
         if (!dbKey.hwid) {
             // İlk defa kullanılıyor, HWID'i kilitle
             dbKey.hwid = hwid;
             dbKey.isUsed = true;
-            await dbKey.save();
+            await dbKey.save(); // <-- HWID SADECE BURADA VE SADECE İSİM DOĞRUYSA KAYDEDİLİR.
         } else {
             // Daha önce kullanılmış, HWID eşleşiyor mu?
             if (dbKey.hwid !== hwid) {
-                return res.json({ success: false, message: "HWID Hatası! Başka cihazda kullanılmış. / HWID Mismatch! Used on another device." });
+                return res.json({ success: false, message: "HWID Hatası! Başka cihazda kullanılmış. / HWID Mismatch!" });
             }
         }
 
@@ -175,7 +174,7 @@ client.once('ready', async () => {
         i++;
     }, 5000); 
 
-    // SES SİSTEMİ (DÜZELTİLDİ)
+    // SES SİSTEMİ (DOĞRU AYARLAR)
     const connectToVoice = async () => {
         try {
             const guildId = process.env.GUILD_ID; 
@@ -192,7 +191,7 @@ client.once('ready', async () => {
             joinVoiceChannel({
                 channelId: voiceChannel.id,
                 guildId: guild.id,
-                adapterCreator: guild.voiceAdapterCreator, // <--- DÜZELTİLEN YER BURASI
+                adapterCreator: guild.voiceAdapterCreator, // <-- BURASI DOĞRU
                 selfDeaf: true,
                 selfMute: true
             });
