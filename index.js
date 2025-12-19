@@ -95,7 +95,7 @@ app.get('/check-key', async (req, res) => {
                 return res.json({ 
                     success: false, 
                     scriptName: dbKey.scriptName, // Doğrusunu göster
-                    message: `HATA: Bu Key '${dbKey.scriptName}' içindir. Buraya (${scriptName}) giremez!` 
+                    message: `HATA: Yanlış Key! / Wrong Key!` 
                 });
                 // BURADA "RETURN" ETTİĞİMİZ İÇİN KOD AŞAĞIYA İNMEZ VE HWID KAYDETMEZ.
             }
