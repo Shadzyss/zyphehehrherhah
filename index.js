@@ -55,11 +55,11 @@ if (fs.existsSync(commandsPath)) {
 const TARGET_VOICE_CHANNEL_ID = '1448368801606533364';
 
 // ==========================================================
-// 🌍 ROBLOX API ENDPOINT (GÜNCELLENDİ: Strict Mode)
+// 🌍 ROBLOX API ENDPOINT (GÜNCELLENDİ: Güvenli Script Kontrolü)
 // ==========================================================
 app.get('/check-key', async (req, res) => {
-    // strict parametresi eklendi: "subscriber" veya "general" gönderilebilir
-    const { key, hwid, strict } = req.query;
+    // scriptName parametresi eklendi
+    const { key, hwid, strict, scriptName } = req.query;
 
     if (!key || !hwid) {
         return res.json({ success: false, message: "Key veya HWID eksik! / Key or HWID missing!" });
@@ -81,14 +81,26 @@ app.get('/check-key', async (req, res) => {
             return res.json({ success: false, message: "Geçersiz Key! / Invalid Key!" });
         }
 
-        // --- 🛡️ TÜR KONTROLÜ (Strict Mode) ---
-        // Eğer GUI "strict" parametresi gönderdiyse ve tür uyuşmuyorsa,
-        // HWID kilitlemeden direkt reddet.
+        // --- 🛡️ TÜR KONTROLÜ (Strict Mode - UI'dan gelen) ---
         if (strict && strict !== keyType) {
             return res.json({ 
                 success: false, 
                 message: `Yanlış Key Tipi! Bu menü sadece ${strict} keyleri içindir. / Wrong Key Type! This menu is for ${strict} keys only.` 
             });
+        }
+
+        // --- 🛡️ SCRIPT İSMİ KONTROLÜ (GÜVENLİK GÜNCELLEMESİ) ---
+        // Bu bölüm HWID kaydetmeden ÖNCE çalışır. Böylece yanlış yere girilen key yanmaz.
+        if (scriptName) {
+            // Eğer key "ABONE KEY" ise her yere girebilir, kontrolü geç.
+            // Ama normal key ise ve isimler uyuşmuyorsa REDDET.
+            if (dbKey.scriptName !== "ABONE KEY" && dbKey.scriptName !== scriptName) {
+                return res.json({ 
+                    success: false, 
+                    scriptName: dbKey.scriptName, // Doğru ismi geri döndür
+                    message: `Yanlış Oyun! Bu Key '${dbKey.scriptName}' oyunu içindir. / Wrong Game! This key is for '${dbKey.scriptName}'.` 
+                });
+            }
         }
 
         // --- KONTROLLER ---
@@ -101,7 +113,7 @@ app.get('/check-key', async (req, res) => {
             }
         }
 
-        // B) HWID Kontrolü (Güvenlik)
+        // B) HWID Kontrolü ve Kaydetme (Artık buraya geldiyse script doğrudur)
         if (!dbKey.hwid) {
             // İlk defa kullanılıyor, HWID'i kilitle
             dbKey.hwid = hwid;
@@ -180,7 +192,7 @@ client.once('ready', async () => {
             joinVoiceChannel({
                 channelId: voiceChannel.id,
                 guildId: guild.id,
-                adapterCreator: guild.voiceAdapterCreator,
+                voiceAdapterCreator: guild.voiceAdapterCreator,
                 selfDeaf: true,
                 selfMute: true
             });
