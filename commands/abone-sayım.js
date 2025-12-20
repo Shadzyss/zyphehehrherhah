@@ -5,7 +5,7 @@ const AboneStaff = require('../models/aboneStaffModel');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('abone-sayım')
-        .setDescription('Toplam abone verme sayınızı gösterir.')
+        .setDescription('Toplam Abone Sayınızı Gösterir')
         .setDescriptionLocalizations({
             'en-US': 'Shows your total subscriber grant count.',
             'tr': 'Toplam abone verme sayınızı gösterir.'

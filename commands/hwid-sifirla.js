@@ -7,7 +7,7 @@ const GeneralKey = require('../models/generalKeyModel');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('hwid-sıfırla')
-        .setDescription('Bir keyin HWID adresini sıfırlar (Sadece Bot Yetkilileri).')
+        .setDescription('Belirlenen Keyin HWIDini Sıfırlar.')
         .addStringOption(option => 
             option.setName('anahtar')
                 .setDescription('HWID sıfırlanacak Key veya Key ID')

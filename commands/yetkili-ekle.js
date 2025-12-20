@@ -5,7 +5,7 @@ const Admin = require('../models/adminModel'); // Veritabanı modelimiz
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('yetkili-ekle')
-        .setDescription('Bota yeni bir yönetici ekler (Sadece Kurucu).')
+        .setDescription('Etiketlenen Kişiyi Bot Yetkilisi Kategorisine Ekler')
         .addUserOption(option => 
             option.setName('kullanıcı')
                 .setDescription('Yetkili yapılacak kişi')

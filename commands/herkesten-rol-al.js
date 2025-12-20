@@ -4,7 +4,7 @@ const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, Butt
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('herkesten-rol-al')
-        .setDescription('Sunucudaki herkesten (botlar hariç) belirli bir rolü alır (Sadece Sunucu Sahibi).')
+        .setDescription('Sunucudaki Herkesten Belirlenen Rolü Alır')
         .addRoleOption(option => 
             option.setName('rol')
                 .setDescription('Alınacak rol')

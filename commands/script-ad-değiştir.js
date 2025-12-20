@@ -7,7 +7,7 @@ const GeneralKey = require('../models/generalKeyModel');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('script-ad-değiştir')
-        .setDescription('Bir keyin script adını değiştirir (Sadece Bot Yetkilileri).')
+        .setDescription('Belirtilen Keyin Script Adını Değiştirir')
         .addStringOption(option => 
             option.setName('anahtar')
                 .setDescription('İşlem yapılacak Key veya Key ID')

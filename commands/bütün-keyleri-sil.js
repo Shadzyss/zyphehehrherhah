@@ -7,7 +7,7 @@ const GeneralKey = require('../models/generalKeyModel');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('bütün-keyleri-sil')
-        .setDescription('Veritabanındaki bütün keyleri siler (Sadece Bot Yetkilileri).'),
+        .setDescription('Veritabanındaki Bütün Keyleri Siler'),
 
     async execute(interaction) {
         const { member } = interaction;

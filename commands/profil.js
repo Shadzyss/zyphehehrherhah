@@ -7,10 +7,10 @@ const GeneralKey = require('../models/generalKeyModel');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('profil')
-        .setDescription('Kullanıcı profilini görüntüler.')
+        .setDescription('Profilinizi Gösterir')
         .addUserOption(option => 
             option.setName('kullanıcı')
-                .setDescription('Profili görüntülenecek kişi (Boş bırakırsan kendin)')
+                .setDescription('Profili Görüntülenecek Kişi Boş Bırakırsanız Kendi Profilinizi Görürsünüz')
                 .setRequired(false)),
 
     async execute(interaction) {

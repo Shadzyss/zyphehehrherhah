@@ -3,7 +3,7 @@ const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, Butt
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('help')
-        .setDescription('Botun yardım menüsünü gösterir.'),
+        .setDescription('Botun Yardım Menüsünü Görüntülersiniz'),
 
     async execute(interaction) {
         // --- 1. DİL KONTROLÜ (.env'den çekiyoruz) ---

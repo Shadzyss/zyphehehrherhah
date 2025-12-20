@@ -5,7 +5,7 @@ const AboneStaff = require('../models/aboneStaffModel');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('abone')
-        .setDescription('Kullanıcıya abone rolü verir veya alır.')
+        .setDescription('Kullanıcıya Abone Rolü Verir/Alır')
         .addUserOption(option => 
             option.setName('kullanıcı')
                 .setDescription('İşlem yapılacak kullanıcı')

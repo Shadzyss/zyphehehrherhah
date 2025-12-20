@@ -5,7 +5,7 @@ const translate = require('@iamtraction/google-translate'); // Çeviri modülü
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('dm-mesaj')
-        .setDescription('Belirtilen kullanıcıya bot üzerinden DM atar (Sadece Kurucu).')
+        .setDescription('Etiketlenen Kişiye Bot Dmden Mesaj Gönderir')
         .addUserOption(option => 
             option.setName('kullanıcı')
                 .setDescription('Mesajın gönderileceği kişi')

@@ -4,7 +4,7 @@ const AboneStaff = require('../models/aboneStaffModel'); // Model dosya yolun (G
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('abone-top')
-        .setDescription('En çok abone işlemi yapan yetkilileri sıralar.'),
+        .setDescription('En Çok Abone Veren Yetkililer Listeler'),
 
     async execute(interaction) {
         // --- 1. DİL KONTROLÜ ---

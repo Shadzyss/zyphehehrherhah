@@ -7,7 +7,7 @@ const GeneralKey = require('../models/generalKeyModel');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('key-sorgula')
-        .setDescription('Belirtilen Key veya Key ID hakkında bilgi verir (Sadece Bot Yetkilileri).')
+        .setDescription('Belirtilen Key veya Key ID Hakkında Bilgi Verir.')
         .addStringOption(option => 
             option.setName('anahtar')
                 .setDescription('Sorgulanacak Key veya Key ID')

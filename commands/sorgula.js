@@ -7,7 +7,7 @@ const GeneralKey = require('../models/generalKeyModel');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('sorgula')
-        .setDescription('Bir kullanıcının sahip olduğu keyleri listeler (Sadece Bot Yetkilileri).')
+        .setDescription('Etiketlenen Kullanıcının Üstüne Kayıtlı Olan Keyleri Listeler')
         .addUserOption(option => 
             option.setName('kullanıcı')
                 .setDescription('Sorgulanacak kullanıcı veya ID')

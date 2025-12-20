@@ -53,7 +53,7 @@ function calculateExpiration(input) {
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('key-oluştur')
-        .setDescription('Kullanıcıya özel key oluşturur (Sadece Bot Yetkilileri).')
+        .setDescription('Kullanıcıya Özel Key Oluşturur')
         .addUserOption(option => option.setName('kullanıcı').setDescription('Key kime oluşturulacak?').setRequired(true))
         .addStringOption(option => option.setName('sebep').setDescription('Oluşturulma sebebi').setRequired(true))
         .addStringOption(option => option.setName('scriptadı').setDescription('Script adı').setRequired(true))
@@ -195,14 +195,16 @@ module.exports = {
 📜 Script Name --> \`${scriptName}\`
 🧾 Creation Reason --> \`${reason}\`
 ⏰ Creation Time --> <t:${createdTs}:F>
-⏱️ Expiration Time --> ${expiresText}**`
+⏱️ Expiration Time --> ${expiresText}
+❗ __KEY IS FOR SINGLE USE ONLY. DO NOT SHARE YOUR KEY INFORMATION WITH ANYONE__**`
                         : `**⛓️‍💥 Oluşturulan Key --> ||\`${newKey}\`||
 🆔 Oluşturulan Key ID --> \`${newKeyId}\`
 🪄 Key'i Oluşturan Yetkili --> ${member}
 📜 Script Adı --> \`${scriptName}\`
 🧾 Key'in Oluşturulma Sebebi --> \`${reason}\`
 ⏰ Key'in Oluşturulma Zamanı --> <t:${createdTs}:F>
-⏱️ Key'in Bitiş Süresi --> ${expiresText}**`;
+⏱️ Key'in Bitiş Süresi --> ${expiresText}
+❗ __KEY TEK KULLANIMLIKTIR KEY BİLGİLERİNİZİ KİMSEYLE PAYLAŞMAYIN__**`;
 
                     const dmEmbed = new EmbedBuilder()
                         .setTitle(dmTitle)
@@ -274,7 +276,8 @@ module.exports = {
 📜 Script Name --> \`${scriptName}\`
 🧾 Creation Reason --> \`${reason}\`
 ⏰ Creation Time --> <t:${createdTs}:F>
-⏱️ Expiration Time --> ${expiresText}**`
+⏱️ Expiration Time --> ${expiresText}
+❗ __KEY IS FOR SINGLE USE ONLY. DO NOT SHARE YOUR KEY INFORMATION WITH ANYONE__**`
                                 : `**⛓️‍💥 Oluşturulan Key --> ||\`${newKey}\`||
 🆔 Oluşturulan Key ID --> \`${newKeyId}\`
 🪄 Key'i Oluşturan Yetkili --> ${member}
@@ -282,7 +285,8 @@ module.exports = {
 📜 Script Adı --> \`${scriptName}\`
 🧾 Key'in Oluşturulma Sebebi --> \`${reason}\`
 ⏰ Key'in Oluşturulma Zamanı --> <t:${createdTs}:F>
-⏱️ Key'in Bitiş Süresi --> ${expiresText}**`;
+⏱️ Key'in Bitiş Süresi --> ${expiresText}
+❗ __KEY TEK KULLANIMLIKTIR KEY BİLGİLERİNİZİ KİMSEYLE PAYLAŞMAYIN__**`;
 
                             const finalEmbed = new EmbedBuilder()
                                 .setTitle(finalTitle)

@@ -5,7 +5,7 @@ const SubscriberKey = require('../models/subscriberKeyModel');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('keylerim')
-        .setDescription('Sahip olduğunuz keyleri listeler.'),
+        .setDescription('Sahip Olduğunuz Keyleri Listeler'),
 
     async execute(interaction) {
         // --- 1. DİL AYARLAMA MANTIĞI ---

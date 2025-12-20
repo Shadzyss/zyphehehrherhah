@@ -7,7 +7,7 @@ const GeneralKey = require('../models/generalKeyModel');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('key-sil')
-        .setDescription('Belirtilen kullanıcıya ait bir keyi siler (Sadece Bot Yetkilileri).')
+        .setDescription('Belirtilen Kullanıcının Belirtilen Keyi Siler')
         .addUserOption(option => option.setName('kullanıcı').setDescription('Key sahibi').setRequired(true))
         .addStringOption(option => option.setName('keyid').setDescription('Silinecek Key ID (6 Haneli)').setRequired(true))
         .addStringOption(option => option.setName('sebep').setDescription('Silme sebebi').setRequired(true)),

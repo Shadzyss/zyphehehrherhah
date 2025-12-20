@@ -5,7 +5,7 @@ const AboneStaff = require('../models/aboneStaffModel');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('abone-ekle')
-        .setDescription('Bir yetkiliye manuel olarak abone sayısı ekler (Sadece Kurucu).')
+        .setDescription('Etiketlenen Yetkiliye Belirlenen Sayı Kadar Abone Sayı Ekler')
         .addUserOption(option => 
             option.setName('kullanıcı')
                 .setDescription('Sayı eklenecek yetkili')

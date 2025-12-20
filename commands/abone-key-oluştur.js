@@ -119,14 +119,16 @@ module.exports = {
 📜 Creation Reason --> \`Abone Key\`
 🧾 Script Name --> \`ABONE KEY\`
 ⏰ Creation Time --> <t:${timestamp}:F>
-⏱️ Expiration Time --> \`${durationText}\`**`
+⏱️ Expiration Time --> \`${durationText}\`
+❗ __KEY IS FOR SINGLE USE ONLY. DO NOT SHARE YOUR KEY INFORMATION WITH ANYONE__**`
                 : `**⛓️‍💥 Oluşturulan Key --> ||\`${newKey}\`||
 🆔 Oluşturulan Key ID --> \`${newKeyId}\`
 🪄 Key'i Oluşturan Kişi --> ${member}
 📜 Key'in Oluşturulma Sebebi --> \`Abone Key\`
 🧾 Script Adı --> \`ABONE KEY\`
 ⏰ Key'in Oluşturulma Zamanı --> <t:${timestamp}:F>
-⏱️ Key'in Bitiş Zamanı --> \`${durationText}\`**`;
+⏱️ Key'in Bitiş Zamanı --> \`${durationText}\`
+❗ __KEY TEK KULLANIMLIKTIR KEY BİLGİLERİNİZİ KİMSEYLE PAYLAŞMAYIN__**`;
 
             const dmEmbed = new EmbedBuilder()
                 .setTitle(dmTitle)

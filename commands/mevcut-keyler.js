@@ -7,7 +7,7 @@ const GeneralKey = require('../models/generalKeyModel');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('mevcut-keyler')
-        .setDescription('Aktif olan bütün keyleri listeler (Sadece Bot Yetkilileri).'),
+        .setDescription('Aktif Olan Bütün Keyleri Listeler'),
 
     async execute(interaction) {
         const { member } = interaction;
