@@ -70,7 +70,7 @@ module.exports = {
 
         const dmEmbed = new EmbedBuilder()
             .setTitle(dmTitle)
-            .setDescription(`\`\`\`${finalMessage}\`\`\``)
+            .setDescription(`**${finalMessage}**`)
             .setColor('Random');
 
         // --- 4. DM GÖNDERME ---
@@ -121,7 +121,7 @@ module.exports = {
                     .setDescription(`
 **Mesaj Başlığı:** \`${interaction.user.username} Adlı Kişiden Bir Mesaj Aldınız\`
 **Mesaj İçeriği:**
-\`\`\`${finalMessage}\`\`\`
+**${finalMessage}**
 ${isTargetEnglish ? `\n**❗ Not: Kullanıcı İngiliz olduğu için mesajın çevrildi.**` : ``}`)
                     .setColor('Random');
                 
