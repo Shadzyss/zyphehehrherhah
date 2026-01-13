@@ -327,4 +327,49 @@ client.on('interactionCreate', async interaction => {
     }
 });
 
+// ==========================================================
+// 🛡️ SUNUCUDAN AYRILAN KİŞİNİN KEYLERİNİ SİLME SİSTEMİ
+// ==========================================================
+client.on('guildMemberRemove', async (member) => {
+    if (member.user.bot) return;
+
+    const LOG_CHANNEL_ID = "1460584716439916645";
+
+    try {
+        // Önce kullanıcının sahip olduğu toplam key sayısını bulalım
+        const generalKeys = await GeneralKey.find({ ownerId: member.id });
+        const subKeys = await SubscriberKey.find({ ownerId: member.id });
+        const totalKeys = generalKeys.length + subKeys.length;
+
+        const logChannel = member.guild.channels.cache.get(LOG_CHANNEL_ID);
+        if (!logChannel) return;
+
+        const embed = new EmbedBuilder()
+            .setTitle('Kullanıcı Sunucudan Ayrıldı');
+
+        if (totalKeys > 0) {
+            // Keyleri veritabanından siliyoruz
+            await GeneralKey.deleteMany({ ownerId: member.id });
+            await SubscriberKey.deleteMany({ ownerId: member.id });
+
+            // Başarılı (Yeşil) Embed
+            embed.setColor('Green')
+                .setDescription(`**👑 Sunucudan Ayrılan Kişi --> ${member} / \`${member.id}\`
+⛓️‍💥 Kişinin Sahip Olduğu Toplam Key Sayısı --> \`${totalKeys}\`
+❗ __KİŞİNİN ÜSTÜNE KAYITLI OLAN BÜTÜN KEYLER SİLİNDİ__**`);
+        } else {
+            // Key yoksa (Kırmızı) Embed
+            embed.setColor('Red')
+                .setDescription(`**👑 Sunucudan Ayrılan Kişi --> ${member} / \`${member.id}\`
+⛓️‍💥 Kişinin Sahip Olduğu Toplam Key Sayısı --> \`0\`
+❗ __KİŞİNİN ÜSTÜNDE HİÇ KAYITLI KEY OLMADIĞI İÇİN HİÇBİR KEY SİLİNMEDİ__**`);
+        }
+
+        await logChannel.send({ embeds: [embed] });
+
+    } catch (error) {
+        console.error("Ayrılan üye key silme hatası:", error);
+    }
+});
+
 client.login(process.env.CLIENT_TOKEN);
