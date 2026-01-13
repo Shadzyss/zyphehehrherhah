@@ -148,7 +148,8 @@ module.exports = {
                     .setTitle('⛓️‍💥 Aktif Keyler')
                     .setDescription(descriptionText)
                     .setColor(Colors.Green)
-                    .setFooter({ text: `Sayfa --> ${currentPage + 1}/${totalPages}` });
+                    // BURASI GÜNCELLENDİ: Hem sayfa sayısını hem de toplam key sayısını gösterir
+                    .setFooter({ text: `Sayfa --> ${currentPage + 1}/${totalPages} | Toplam Aktif Keyler --> ${activeKeys.length}` });
 
                 // --- BUTONLARI OLUŞTURMA ---
                 const firstBtn = new ButtonBuilder()
@@ -175,8 +176,6 @@ module.exports = {
                     .setStyle(ButtonStyle.Secondary)
                     .setDisabled(currentPage === totalPages - 1);
 
-                // Eğer tek sayfa varsa butonları koymaya gerek yok ama formatı bozmamak için disable edip koyabiliriz veya hiç koymayız.
-                // İsteğine göre butonlar hep var olsun, duruma göre kilitlensin.
                 const navRow = new ActionRowBuilder().addComponents(firstBtn, prevBtn, nextBtn, lastBtn);
 
                 // Mesajı güncelle
